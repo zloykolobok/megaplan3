@@ -1,0 +1,17 @@
+{
+    "name": "zloykolobok/megaplan3",
+    "description": "Laravel package for working with megaplan on api v3",
+    "version": "1.0.0",
+    "authors": [
+        {
+            "name": "Roman Nikolaenkov",
+            "email": "rnikolaenkov@yandex.ru"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Zloykolobok\\Megaplan3\\": "src/"
+        }
+    },
+    "require": {}
+}
