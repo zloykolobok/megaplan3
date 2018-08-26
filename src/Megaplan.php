@@ -136,19 +136,13 @@ class Megaplan
 
     protected function send(array $data, $action , $method)
     {
-        if($method === 'POST'){
-            $jsonData['access_token'] = $this->access_token;
-            $jsonData = json_encode($jsonData);
-        } else {
-            $jsonData = $data;
-            $jsonData['access_token'] = $this->access_token;
-            $jsonData = json_encode($jsonData);
-        }
+        $jsonData = $data;
+        $jsonData = json_encode($jsonData);
 
-        $action = $action.'/?'.$jsonData;
         $url = $this->url.$action;
 
         $headers = $this->header;
+        $headers[] = 'AUTHORIZATION: Bearer '.$this->access_token;
 
         $data = json_encode($data);
 
@@ -158,7 +152,7 @@ class Megaplan
         curl_setopt( $ch, CURLOPT_CUSTOMREQUEST, $method );
 
         if($method === 'POST'){
-            curl_setopt( $ch, CURLOPT_HTTPHEADER, ['Content-Type' => 'application/json'] );
+            // curl_setopt( $ch, CURLOPT_HTTPHEADER, ['Content-Type' => 'application/json'] );
             curl_setopt( $ch, CURLOPT_POST, true );
             curl_setopt( $ch, CURLOPT_POSTFIELDS, $data);
         }
