@@ -14,7 +14,9 @@ class Currency extends Megaplan
      */
     public function getCurrency(array $data=null)
     {
-        $data['access_token'] = $this->access_token;
+        if($data == null){
+            $data = [];
+        }
         $method = 'GET';
         $action = '/api/v3/currency';
 
