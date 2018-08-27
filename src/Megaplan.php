@@ -67,6 +67,74 @@ class Megaplan
     }
 
     /**
+     * Загрузка файла
+     *
+     * @param [type] $path - путь к файлу
+     * @return void
+     */
+    public function upload($path)
+    {
+        $action = '/api/file';
+        $path = storage_path($path);
+        $type = pathinfo($path, PATHINFO_EXTENSION);
+        $name = pathinfo($path, PATHINFO_BASENAME);
+        $data['files[]'] = new \CURLFile($path,'image/'.$type,$name);
+        $url = $this->url.$action;
+
+        $headers = $this->header;
+        $headers[] = 'AUTHORIZATION: Bearer '.$this->access_token;
+
+        $ch = curl_init( $url );
+        curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+        curl_setopt( $ch, CURLOPT_USERAGENT, __CLASS__ );
+        curl_setopt( $ch, CURLOPT_CUSTOMREQUEST, 'POST' );
+        curl_setopt( $ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt( $ch, CURLOPT_POST, true );
+        curl_setopt( $ch, CURLOPT_POSTFIELDS, $data);
+
+        curl_setopt( $ch, CURLOPT_SSL_VERIFYHOST, 0 );
+        curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, false );
+        curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, true );
+		curl_setopt( $ch, CURLOPT_CONNECTTIMEOUT, $this->timeout );
+        curl_setopt( $ch, CURLOPT_TIMEOUT, $this->timeout );
+
+        $res = curl_exec( $ch );
+
+        if(isset($res->error)){
+            throw new SenddataException($res->error_description);
+        }
+
+        $res = json_decode($res);
+
+        if($res->meta->status == '404'){
+            $error = '';
+            foreach ($res->meta->errors as $e) {
+                $error = ' | '.$e->message;
+            }
+            throw new SenddataException($error);
+        }
+
+        if($res->meta->status == '403'){
+            $error = '';
+            foreach ($res->meta->errors as $e) {
+                $error = ' | '.$e->message;
+            }
+            throw new AuthException($error);
+        }
+
+        if($res->meta->status == '200'){
+            return $res;
+        }
+
+        //неизвестная ошибка
+        $error = '';
+        foreach ($res->meta->errors as $e) {
+            $error = ' | '.$e->message;
+        }
+        throw new MegaplanException($error);
+    }
+
+    /**
      * Авторизация и получение токена в мегаплане
      *
      * @return void
@@ -152,7 +220,6 @@ class Megaplan
         curl_setopt( $ch, CURLOPT_CUSTOMREQUEST, $method );
 
         if($method === 'POST'){
-            // curl_setopt( $ch, CURLOPT_HTTPHEADER, ['Content-Type' => 'application/json'] );
             curl_setopt( $ch, CURLOPT_POST, true );
             curl_setopt( $ch, CURLOPT_POSTFIELDS, $data);
         }
