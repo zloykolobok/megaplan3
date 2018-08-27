@@ -106,7 +106,31 @@ class Contractor extends Megaplan
         return $res;
     }
 
+    /**
+     * Редактирование клиент-человека
+     *
+     * @param [type] $id
+     * @param [type] $data
+     * @return void
+     */
     public function editContractorHuman($id, $data)
+    {
+        $method = 'POST';
+        $action = '/api/v3/contractorHuman/'.$id;
+
+        $res = $this->send($data, $action, $method);
+
+        return $res;
+    }
+
+    /**
+     * Редактирование клиент-компанию
+     *
+     * @param [type] $id
+     * @param [type] $data
+     * @return void
+     */
+    public function editContractorCompany($id, $data)
     {
         $method = 'POST';
         $action = '/api/v3/contractorHuman/'.$id;
