@@ -51,9 +51,9 @@ class Megaplan
             throw new ConfigException("No timeout for megaplan");
         }
 
-        if(config('megaplan3.session') == null or config('megaplan3.session') == '') {
-            throw new ConfigException("No session for megaplan");
-        }
+        // if(config('megaplan3.session') == null or config('megaplan3.session') == '') {
+        //     throw new ConfigException("No session for megaplan");
+        // }
 
         $this->url = config('megaplan3.url');
         $this->header = config('megaplan3.header');
@@ -218,6 +218,7 @@ class Megaplan
         curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
         curl_setopt( $ch, CURLOPT_USERAGENT, __CLASS__ );
         curl_setopt( $ch, CURLOPT_CUSTOMREQUEST, $method );
+        curl_setopt( $ch, CURLOPT_HTTPHEADER, $headers );
 
         if($method === 'POST'){
             curl_setopt( $ch, CURLOPT_POST, true );
