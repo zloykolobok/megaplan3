@@ -16,4 +16,18 @@ class Deal extends Megaplan
 
         return $res;
     }
+
+    public function addComment($id,$content, $attaches)
+    {
+        $data = [
+            'contentType' => 'Comment',
+            'content' => $content,
+        ];
+        $method = 'POST';
+        $action = '/api/v3/deal/'.$id.'/comments';
+
+        $res = $this->send($data, $action, $method);
+
+        return $res;
+    }
 }
