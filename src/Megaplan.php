@@ -272,8 +272,9 @@ class Megaplan
      */
     public function upload($path)
     {
+        $this->auth();
         $action = '/api/file';
-        $path = storage_path($path);
+        // $path = storage_path($path);
         $type = pathinfo($path, PATHINFO_EXTENSION);
         $name = pathinfo($path, PATHINFO_BASENAME);
         $data['files[]'] = new \CURLFile($path,'image/'.$type,$name);
@@ -340,6 +341,14 @@ class Megaplan
     protected function auth()
     {
         $res = '';
+
+        $this->checkUrl();
+        $this->checkUsername();
+        $this->checkPassword();
+        $this->checkHeader();
+        $this->checkGrantType();
+        $this->checkTimeout();
+
         // if($this->session){
         //     if(Storage::exists('session.json')){
         //         $res = json_decode(Storage::get('session.json'));
