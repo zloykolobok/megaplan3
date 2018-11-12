@@ -1,7 +1,7 @@
 {
     "name": "zloykolobok/megaplan3",
     "description": "Package for working with megaplan on api v3",
-    "version": "2.0.0",
+    "license": "MIT",
     "authors": [
         {
             "name": "Roman Nikolaenkov",
