@@ -63,7 +63,7 @@ class Megaplan
         // $this->timeout = config('megaplan3.timeout');
         // $this->session = config('megaplan3.session');
 
-        $this->auth();
+        // $this->auth();
     }
 
     /**
@@ -402,6 +402,7 @@ class Megaplan
 
     protected function send(array $data, $action , $method)
     {
+        $this->auth();
         $jsonData = $data;
         $jsonData = json_encode($jsonData);
 
