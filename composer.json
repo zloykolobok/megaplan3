@@ -1,7 +1,7 @@
 {
     "name": "zloykolobok/megaplan3",
     "description": "Laravel package for working with megaplan on api v3",
-    "version": "1.0.0",
+    "version": "2.0.0",
     "authors": [
         {
             "name": "Roman Nikolaenkov",
