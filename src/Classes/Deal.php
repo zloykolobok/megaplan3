@@ -30,4 +30,21 @@ class Deal extends Megaplan
 
         return $res;
     }
+
+    /**
+     * Получаем данные по сделке
+     *
+     * @param int $dealId
+     * @return void
+     */
+    public function getDeal(int $dealId)
+    {
+        $method = 'GET';
+        $action = '/api/v3/deal/'.$dealId;
+        $data = [];
+
+        $res = $this->send($data, $action, $method);
+
+        return $res;
+    }
 }
