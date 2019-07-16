@@ -22,12 +22,12 @@ class Contractor extends Megaplan
         $action = '/api/v3/contractorHuman/extraFields/';
         $data = [];
 
-        $res = $this->send($data, $action, $method);
+        $res = $this->send($data,[], $action, $method);
 
         return $res;
     }
 
-     /**
+    /**
      * Получаем список полей для клиента-компании
      *
      * @return void
@@ -38,7 +38,7 @@ class Contractor extends Megaplan
         $action = '/api/v3/contractorCompany/extraFields/';
         $data = [];
 
-        $res = $this->send($data, $action, $method);
+        $res = $this->send($data, [],$action, $method);
 
         return $res;
     }
@@ -54,9 +54,8 @@ class Contractor extends Megaplan
     {
         $method = 'GET';
         $action = '/api/v3/contractorHuman/';
-        $data = $pagination;
 
-        $res = $this->send($data,$action,$method);
+        $res = $this->send([],$pagination,$action,$method);
         return $res;
     }
 
@@ -71,7 +70,6 @@ class Contractor extends Megaplan
     {
         $method = 'GET';
         $action = '/api/v3/contractorCompany/';
-        $data = $pagination;
 
         $res = $this->send([],$pagination,$action,$method);
         return $res;
@@ -89,7 +87,7 @@ class Contractor extends Megaplan
         $action = '/api/v3/contractorHuman/'.$id;
         $data = [];
 
-        $res = $this->send($data, $action, $method);
+        $res = $this->send($data,[], $action, $method);
 
         return $res;
     }
