@@ -6,6 +6,11 @@ use Zloykolobok\Megaplan3\Megaplan;
 
 class Contractor extends Megaplan
 {
+//    public function __construct()
+//    {
+//        parent::__construct();
+//    }
+
     /**
      * Получаем список полей для клиента-человек
      *
@@ -68,7 +73,7 @@ class Contractor extends Megaplan
         $action = '/api/v3/contractorCompany/';
         $data = $pagination;
 
-        $res = $this->send($data,$action,$method);
+        $res = $this->send([],$pagination,$action,$method);
         return $res;
     }
 
@@ -101,7 +106,7 @@ class Contractor extends Megaplan
         $action = '/api/v3/contractorCompany/'.$id;
         $data = [];
 
-        $res = $this->send($data, $action, $method);
+        $res = $this->send($data, [], $action, $method);
 
         return $res;
     }
@@ -177,6 +182,17 @@ class Contractor extends Megaplan
         $method = 'POST';
         $action = '/api/v3/contractorHuman/'.$id.'/comments';
 
+        $res = $this->send($data, $action, $method);
+
+        return $res;
+    }
+
+    public function test()
+    {
+        $data = [];
+        $action = 'apiattach/SdfFileM_File/File/81/db9da906d881ec8cef34df6b90e7f84b.png/galochka.png';
+
+        $method = 'GET';
         $res = $this->send($data, $action, $method);
 
         return $res;
